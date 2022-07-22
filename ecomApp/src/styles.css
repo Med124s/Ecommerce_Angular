@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+.catItems{
+    cursor:pointer
+}
+.catItems:hover{
+    background-color: #F00;
+    color:#fff
+}
+.activeCat{background-color:#F00;color:#fff}

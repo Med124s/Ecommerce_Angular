@@ -1,0 +1,72 @@
+<div *ngIf="products">
+  <div>
+    <h1>{{ title }}</h1>
+  </div>
+  <div *ngFor="let p of products._embedded.productses">
+    <div class="col-md-6">
+      <div class="panel panel-default heigthed">
+        <div class="panel-heading">{{ p.name }}</div>
+        <div class="panel-body">
+          <img  style="width: 250px;height: 250px;"
+          class="img-thumbnail img-rounded btn"
+            [src]="
+              this.host +
+                'photoProduct/' +
+                p.id +
+                '?timestamp=' +
+                getTimestamp()
+            "
+            (click)="detailProduct(p)"
+            alt=""
+          />
+          <div *ngIf="this.authenticationService.isAdmin()">
+            <div>
+            <button (click)="loading(p)" class="btn btn-info">
+              <i class="far fa-edit"></i>
+            </button>
+          </div>
+          <div>
+            <form
+              method=""
+              action=""
+              *ngIf="onloadPhoto && currentProduct == p"
+            >
+              <input type="file" (change)="onSelectPhoto($event)" />
+              <button (click)="uploadPhoto()" class="btn btn-success">
+                Upload
+              </button>
+              {{ progress }}
+            </form>
+          </div>
+          </div>
+          <div>{{p.description}}</div>
+          <div>
+            <label> Price :{{ p.currentPrice | number: "0.00" }}</label>
+          </div>
+          <div>
+            <span *ngIf="p.promotion">
+              <img src="assets/images/promotion.jpg" class="img-thumbnail img-circle" style="width:45px;margin-right: 5px;cursor: pointer;"/>
+            </span>
+            <span *ngIf="p.selected">
+              <img src="assets/images/favorite.jpg" class="img-thumbnail img-circle" style="width:45px;cursor: pointer"/>
+            </span>
+            <span *ngIf="p.available">
+              <img src="assets/images/Available.jpg" class="img-thumbnail img-circle" style="width:45px;cursor: pointer"/>
+            </span>
+          </div>
+          
+          <div>
+            <form #f="ngForm">
+              <label class="control-label">Quantity:</label>
+              <input type="number" name="quantity" [(ngModel)]="p.quantity" ngModel style="width:50px"/>
+              <button style="padding: 0px;border: none;background: none;">
+                <img src="assets/images/caddy.png" class="" style="width:35px;cursor: pointer;margin-left: 5px;" />
+              </button>
+            </form>
+          </div>
+        
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

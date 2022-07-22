@@ -1,0 +1,30 @@
+<div *ngIf="getItems()" class="col-md-9">
+  <div class="panel panel-default">
+    <div class="panel-heading">Caddies</div>
+  </div>
+  <div class="panel-body">
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#Id item</th>
+          <th scope="col">Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let items of getItems()">
+          <td>{{ items.product.id }}</td>
+          <td>{{ items.product.name }}</td>
+          <td>{{ items.quantity }}</td>
+          <td>{{ items.prix }}</td>
+        </tr>
+        <tr>
+            <td colspan="3">total</td>
+            <td>{{this.caddyService.getTotatl()}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

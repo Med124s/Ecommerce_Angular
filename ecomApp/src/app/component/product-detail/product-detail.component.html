@@ -1,0 +1,104 @@
+<div *ngIf="currentProduct">
+  <div *ngIf="mode!=1" class="panel panel-default heigthed">
+    <div class="panel-heading">
+      Product Name :{{ currentProduct.name }}
+      <i (click)="onUpdateProduct(currentProduct)" class="far fa-edit pull-right btn" style="margin-top: -7px"></i>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-4">
+        <img
+          style="width: 250px; height: 250px"
+          class="img-thumbnail img-rounded"
+          [src]="
+            this.host +
+            'photoProduct/' +
+            currentProduct.id +
+            '?timestamp=' +
+            getTimestamp()
+          "
+        />
+
+        <div *ngIf="this.authenticationService.isAdmin()">
+          <div>
+            <button (click)="loading(currentProduct)" class="btn btn-info">
+              <i class="far fa-edit"></i>
+            </button>
+          </div>
+          <div>
+            <form method="" action="" *ngIf="onloadPhoto">
+              <input type="file" (change)="onSelectPhoto($event)" />
+              <button (click)="uploadPhoto()" class="btn btn-success">
+                Upload
+              </button>
+              {{ progress }}
+            </form>
+          </div>
+        </div>
+
+        <div>
+          <span *ngIf="currentProduct.promotion">
+            <img
+              src="assets/images/promotion.jpg"
+              class="img-thumbnail img-circle"
+              style="width: 45px; margin-right: 5px; cursor: pointer"
+            />
+          </span>
+          <span *ngIf="currentProduct.selected">
+            <img
+              src="assets/images/favorite.jpg"
+              class="img-thumbnail img-circle"
+              style="width: 45px; cursor: pointer"
+            />
+          </span>
+          <span *ngIf="currentProduct.available">
+            <img
+              src="assets/images/Available.jpg"
+              class="img-thumbnail img-circle"
+              style="width: 45px; cursor: pointer"
+            />
+          </span>
+        </div>
+
+        <div>
+          <form #f="ngForm">
+            <label class="control-label">Quantity:</label>
+            <input
+              type="number"
+              name="quantity"
+              [(ngModel)]="currentProduct.quantity"
+              ngModel
+              style="width: 50px"
+            />
+            <button style="padding: 0px; border: none; background: none">
+              <img
+                src="assets/images/caddy.png"
+                class=""
+                style="width: 35px; cursor: pointer; margin-left: 5px"
+                (click)="onCaddy(currentProduct)"
+              />
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-body">
+          <div>{{ currentProduct.description }}</div>
+          <div>
+            <label>
+              Price :{{ currentProduct.currentPrice | number: "0.00" }}</label
+            >
+          </div>
+        </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="mode==1">
+    <h1>Hey new Interface</h1>
+    <button (click)="saveUpdate()">save</button>
+</div>
+
+</div>
+
